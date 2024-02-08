@@ -1,0 +1,801 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApplicationNotes">
+          <Key>
+            <PropertyRef Name="ApplicationNotesID" />
+          </Key>
+          <Property Name="ApplicationNotesID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationNotesText" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="tinyint" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateLastEdited" Type="datetime" />
+          <Property Name="EditedByUserID" Type="tinyint" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Applications">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AppTypeID" Type="tinyint" Nullable="false" />
+          <Property Name="CriticalityID" Type="tinyint" />
+          <Property Name="ApplicationDescription" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="AppServerID" Type="tinyint" />
+          <Property Name="DBServerID" Type="tinyint" />
+          <Property Name="DBName" Type="varchar" MaxLength="50" />
+          <Property Name="AppURL" Type="varchar" MaxLength="255" />
+          <Property Name="ADLinked" Type="bit" Nullable="false" />
+          <Property Name="NotesID" Type="tinyint" />
+          <Property Name="AppStatusID" Type="tinyint" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="tinyint" Nullable="false" />
+          <Property Name="DateLastEdited" Type="datetime" />
+          <Property Name="EditedByUserID" Type="tinyint" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApplicationStatuses">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AppTypes">
+          <Key>
+            <PropertyRef Name="AppTypeID" />
+          </Key>
+          <Property Name="AppTypeID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppTypeName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Criticality">
+          <Key>
+            <PropertyRef Name="CriticalityID" />
+          </Key>
+          <Property Name="CriticalityID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CriticalityName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Servers">
+          <Key>
+            <PropertyRef Name="ServerID" />
+          </Key>
+          <Property Name="ServerID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServerName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogErrors">
+          <Key>
+            <PropertyRef Name="LogErrorID" />
+          </Key>
+          <Property Name="LogErrorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionID" Type="int" />
+          <Property Name="Type" Type="varchar" MaxLength="100" />
+          <Property Name="Message" Type="varchar" MaxLength="250" />
+          <Property Name="StackTrace" Type="varchar" MaxLength="2000" />
+          <Property Name="Source" Type="varchar" MaxLength="100" />
+          <Property Name="LoggedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogSessions">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="StartDateTime" Type="datetime" Nullable="false" />
+          <Property Name="EndDateTime" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="People">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="64" />
+          <Property Name="Forename" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="JobRole" Type="varchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="320" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonGuid">
+          <Key>
+            <PropertyRef Name="GuidID" />
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="GuidID" Type="int" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonRoles">
+          <Key>
+            <PropertyRef Name="PersonRoleID" />
+          </Key>
+          <Property Name="PersonRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="tinyint" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonUniqueGuids">
+          <Key>
+            <PropertyRef Name="GuidID" />
+          </Key>
+          <Property Name="GuidID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Applicati__AppSe__7C4F7684">
+          <End Role="Servers" Type="Self.Servers" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servers">
+              <PropertyRef Name="ServerID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="AppServerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__AppSt__7D439ABD">
+          <End Role="ApplicationStatuses" Type="Self.ApplicationStatuses" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationStatuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="AppStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__AppTy__7E37BEF6">
+          <End Role="AppTypes" Type="Self.AppTypes" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppTypes">
+              <PropertyRef Name="AppTypeID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="AppTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__Criti__7F2BE32F">
+          <End Role="Criticality" Type="Self.Criticality" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Criticality">
+              <PropertyRef Name="CriticalityID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="CriticalityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__DBSer__00200768">
+          <End Role="Servers" Type="Self.Servers" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servers">
+              <PropertyRef Name="ServerID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="DBServerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__Notes__01142BA1">
+          <End Role="ApplicationNotes" Type="Self.ApplicationNotes" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Applications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationNotes">
+              <PropertyRef Name="ApplicationNotesID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="NotesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogErrors_LogSessions">
+          <End Role="LogSessions" Type="Self.LogSessions" Multiplicity="0..1" />
+          <End Role="LogErrors" Type="Self.LogErrors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogSessions">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="LogErrors">
+              <PropertyRef Name="SessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogSessions_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="LogSessions" Type="Self.LogSessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="LogSessions">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonGuid_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="PersonGuid" Type="Self.PersonGuid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonGuid">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonGuid_PersonUniqueGuids">
+          <End Role="PersonUniqueGuids" Type="Self.PersonUniqueGuids" Multiplicity="1" />
+          <End Role="PersonGuid" Type="Self.PersonGuid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonUniqueGuids">
+              <PropertyRef Name="GuidID" />
+            </Principal>
+            <Dependent Role="PersonGuid">
+              <PropertyRef Name="GuidID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonRoles_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="PersonRoles" Type="Self.PersonRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonRoles">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="ApplicationNotes" EntityType="Self.ApplicationNotes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Applications" EntityType="Self.Applications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApplicationStatuses" EntityType="Self.ApplicationStatuses" Schema="List" store:Type="Tables" />
+          <EntitySet Name="AppTypes" EntityType="Self.AppTypes" Schema="List" store:Type="Tables" />
+          <EntitySet Name="Criticality" EntityType="Self.Criticality" Schema="List" store:Type="Tables" />
+          <EntitySet Name="Servers" EntityType="Self.Servers" Schema="List" store:Type="Tables" />
+          <EntitySet Name="LogErrors" EntityType="Self.LogErrors" Schema="Log" store:Type="Tables" />
+          <EntitySet Name="LogSessions" EntityType="Self.LogSessions" Schema="Log" store:Type="Tables" />
+          <EntitySet Name="People" EntityType="Self.People" Schema="Person" store:Type="Tables" />
+          <EntitySet Name="PersonGuid" EntityType="Self.PersonGuid" Schema="Person" store:Type="Tables" />
+          <EntitySet Name="PersonRoles" EntityType="Self.PersonRoles" Schema="Person" store:Type="Tables" />
+          <EntitySet Name="PersonUniqueGuids" EntityType="Self.PersonUniqueGuids" Schema="Person" store:Type="Tables" />
+          <AssociationSet Name="FK__Applicati__AppSe__7C4F7684" Association="Self.FK__Applicati__AppSe__7C4F7684">
+            <End Role="Servers" EntitySet="Servers" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__AppSt__7D439ABD" Association="Self.FK__Applicati__AppSt__7D439ABD">
+            <End Role="ApplicationStatuses" EntitySet="ApplicationStatuses" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__AppTy__7E37BEF6" Association="Self.FK__Applicati__AppTy__7E37BEF6">
+            <End Role="AppTypes" EntitySet="AppTypes" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__Criti__7F2BE32F" Association="Self.FK__Applicati__Criti__7F2BE32F">
+            <End Role="Criticality" EntitySet="Criticality" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__DBSer__00200768" Association="Self.FK__Applicati__DBSer__00200768">
+            <End Role="Servers" EntitySet="Servers" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__Notes__01142BA1" Association="Self.FK__Applicati__Notes__01142BA1">
+            <End Role="ApplicationNotes" EntitySet="ApplicationNotes" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogErrors_LogSessions" Association="Self.FK_LogErrors_LogSessions">
+            <End Role="LogSessions" EntitySet="LogSessions" />
+            <End Role="LogErrors" EntitySet="LogErrors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogSessions_People" Association="Self.FK_LogSessions_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="LogSessions" EntitySet="LogSessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonGuid_People" Association="Self.FK_PersonGuid_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonGuid" EntitySet="PersonGuid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonGuid_PersonUniqueGuids" Association="Self.FK_PersonGuid_PersonUniqueGuids">
+            <End Role="PersonUniqueGuids" EntitySet="PersonUniqueGuids" />
+            <End Role="PersonGuid" EntitySet="PersonGuid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonRoles_People" Association="Self.FK_PersonRoles_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonRoles" EntitySet="PersonRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ApplicationNote">
+          <Key>
+            <PropertyRef Name="ApplicationNotesID" />
+          </Key>
+          <Property Name="ApplicationNotesID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationNotesText" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="Byte" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateLastEdited" Type="DateTime" Precision="3" />
+          <Property Name="EditedByUserID" Type="Byte" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK__Applicati__Notes__01142BA1" FromRole="ApplicationNotes" ToRole="Applications" />
+        </EntityType>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AppTypeID" Type="Byte" Nullable="false" />
+          <Property Name="CriticalityID" Type="Byte" />
+          <Property Name="ApplicationDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AppServerID" Type="Byte" />
+          <Property Name="DBServerID" Type="Byte" />
+          <Property Name="DBName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AppURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ADLinked" Type="Boolean" Nullable="false" />
+          <Property Name="NotesID" Type="Byte" />
+          <Property Name="AppStatusID" Type="Byte" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedByUserID" Type="Byte" Nullable="false" />
+          <Property Name="DateLastEdited" Type="DateTime" Precision="3" />
+          <Property Name="EditedByUserID" Type="Byte" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ApplicationNote" Relationship="Self.FK__Applicati__Notes__01142BA1" FromRole="Applications" ToRole="ApplicationNotes" />
+          <NavigationProperty Name="Server" Relationship="Self.FK__Applicati__AppSe__7C4F7684" FromRole="Applications" ToRole="Servers" />
+          <NavigationProperty Name="ApplicationStatus" Relationship="Self.FK__Applicati__AppSt__7D439ABD" FromRole="Applications" ToRole="ApplicationStatuses" />
+          <NavigationProperty Name="AppType" Relationship="Self.FK__Applicati__AppTy__7E37BEF6" FromRole="Applications" ToRole="AppTypes" />
+          <NavigationProperty Name="Criticality" Relationship="Self.FK__Applicati__Criti__7F2BE32F" FromRole="Applications" ToRole="Criticality" />
+          <NavigationProperty Name="Server1" Relationship="Self.FK__Applicati__DBSer__00200768" FromRole="Applications" ToRole="Servers" />
+        </EntityType>
+        <EntityType Name="ApplicationStatus">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK__Applicati__AppSt__7D439ABD" FromRole="ApplicationStatuses" ToRole="Applications" />
+        </EntityType>
+        <EntityType Name="AppType">
+          <Key>
+            <PropertyRef Name="AppTypeID" />
+          </Key>
+          <Property Name="AppTypeID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppTypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK__Applicati__AppTy__7E37BEF6" FromRole="AppTypes" ToRole="Applications" />
+        </EntityType>
+        <EntityType Name="Criticality">
+          <Key>
+            <PropertyRef Name="CriticalityID" />
+          </Key>
+          <Property Name="CriticalityID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CriticalityName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK__Applicati__Criti__7F2BE32F" FromRole="Criticality" ToRole="Applications" />
+        </EntityType>
+        <EntityType Name="Server">
+          <Key>
+            <PropertyRef Name="ServerID" />
+          </Key>
+          <Property Name="ServerID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServerName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK__Applicati__AppSe__7C4F7684" FromRole="Servers" ToRole="Applications" />
+          <NavigationProperty Name="Applications1" Relationship="Self.FK__Applicati__DBSer__00200768" FromRole="Servers" ToRole="Applications" />
+        </EntityType>
+        <EntityType Name="LogError">
+          <Key>
+            <PropertyRef Name="LogErrorID" />
+          </Key>
+          <Property Name="LogErrorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionID" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="StackTrace" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Source" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LoggedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="LogSession" Relationship="Self.FK_LogErrors_LogSessions" FromRole="LogErrors" ToRole="LogSessions" />
+        </EntityType>
+        <EntityType Name="LogSession">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="StartDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDateTime" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LogErrors" Relationship="Self.FK_LogErrors_LogSessions" FromRole="LogSessions" ToRole="LogErrors" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_LogSessions_People" FromRole="LogSessions" ToRole="People" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Forename" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JobRole" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="320" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LogSessions" Relationship="Self.FK_LogSessions_People" FromRole="People" ToRole="LogSessions" />
+          <NavigationProperty Name="PersonRoles" Relationship="Self.FK_PersonRoles_People" FromRole="People" ToRole="PersonRoles" />
+          <NavigationProperty Name="PersonUniqueGuids" Relationship="Self.PersonGuid" FromRole="People" ToRole="PersonUniqueGuids" />
+        </EntityType>
+        <EntityType Name="PersonRole">
+          <Key>
+            <PropertyRef Name="PersonRoleID" />
+          </Key>
+          <Property Name="PersonRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Byte" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_PersonRoles_People" FromRole="PersonRoles" ToRole="People" />
+        </EntityType>
+        <EntityType Name="PersonUniqueGuid">
+          <Key>
+            <PropertyRef Name="GuidID" />
+          </Key>
+          <Property Name="GuidID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Guid" Type="Guid" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="People" Relationship="Self.PersonGuid" FromRole="PersonUniqueGuids" ToRole="People" />
+        </EntityType>
+        <Association Name="FK__Applicati__Notes__01142BA1">
+          <End Role="ApplicationNotes" Type="Self.ApplicationNote" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationNotes">
+              <PropertyRef Name="ApplicationNotesID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="NotesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__AppSe__7C4F7684">
+          <End Role="Servers" Type="Self.Server" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servers">
+              <PropertyRef Name="ServerID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="AppServerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__AppSt__7D439ABD">
+          <End Role="ApplicationStatuses" Type="Self.ApplicationStatus" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationStatuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="AppStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__AppTy__7E37BEF6">
+          <End Role="AppTypes" Type="Self.AppType" Multiplicity="1" />
+          <End Role="Applications" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppTypes">
+              <PropertyRef Name="AppTypeID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="AppTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__Criti__7F2BE32F">
+          <End Role="Criticality" Type="Self.Criticality" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Criticality">
+              <PropertyRef Name="CriticalityID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="CriticalityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__DBSer__00200768">
+          <End Role="Servers" Type="Self.Server" Multiplicity="0..1" />
+          <End Role="Applications" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servers">
+              <PropertyRef Name="ServerID" />
+            </Principal>
+            <Dependent Role="Applications">
+              <PropertyRef Name="DBServerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogErrors_LogSessions">
+          <End Role="LogSessions" Type="Self.LogSession" Multiplicity="0..1" />
+          <End Role="LogErrors" Type="Self.LogError" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogSessions">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="LogErrors">
+              <PropertyRef Name="SessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogSessions_People">
+          <End Role="People" Type="Self.Person" Multiplicity="1" />
+          <End Role="LogSessions" Type="Self.LogSession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="LogSessions">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonRoles_People">
+          <End Role="People" Type="Self.Person" Multiplicity="1" />
+          <End Role="PersonRoles" Type="Self.PersonRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonRoles">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonGuid">
+          <End Role="People" Type="Self.Person" Multiplicity="*" />
+          <End Role="PersonUniqueGuids" Type="Self.PersonUniqueGuid" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="AppDevCatalogueEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApplicationNotes" EntityType="Self.ApplicationNote" />
+          <EntitySet Name="Applications" EntityType="Self.Application" />
+          <EntitySet Name="ApplicationStatuses" EntityType="Self.ApplicationStatus" />
+          <EntitySet Name="AppTypes" EntityType="Self.AppType" />
+          <EntitySet Name="Criticalities" EntityType="Self.Criticality" />
+          <EntitySet Name="Servers" EntityType="Self.Server" />
+          <EntitySet Name="LogErrors" EntityType="Self.LogError" />
+          <EntitySet Name="LogSessions" EntityType="Self.LogSession" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="PersonRoles" EntityType="Self.PersonRole" />
+          <EntitySet Name="PersonUniqueGuids" EntityType="Self.PersonUniqueGuid" />
+          <AssociationSet Name="FK__Applicati__Notes__01142BA1" Association="Self.FK__Applicati__Notes__01142BA1">
+            <End Role="ApplicationNotes" EntitySet="ApplicationNotes" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__AppSe__7C4F7684" Association="Self.FK__Applicati__AppSe__7C4F7684">
+            <End Role="Servers" EntitySet="Servers" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__AppSt__7D439ABD" Association="Self.FK__Applicati__AppSt__7D439ABD">
+            <End Role="ApplicationStatuses" EntitySet="ApplicationStatuses" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__AppTy__7E37BEF6" Association="Self.FK__Applicati__AppTy__7E37BEF6">
+            <End Role="AppTypes" EntitySet="AppTypes" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__Criti__7F2BE32F" Association="Self.FK__Applicati__Criti__7F2BE32F">
+            <End Role="Criticality" EntitySet="Criticalities" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__DBSer__00200768" Association="Self.FK__Applicati__DBSer__00200768">
+            <End Role="Servers" EntitySet="Servers" />
+            <End Role="Applications" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogErrors_LogSessions" Association="Self.FK_LogErrors_LogSessions">
+            <End Role="LogSessions" EntitySet="LogSessions" />
+            <End Role="LogErrors" EntitySet="LogErrors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogSessions_People" Association="Self.FK_LogSessions_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="LogSessions" EntitySet="LogSessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonRoles_People" Association="Self.FK_PersonRoles_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonRoles" EntitySet="PersonRoles" />
+          </AssociationSet>
+          <AssociationSet Name="PersonGuid" Association="Self.PersonGuid">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonUniqueGuids" EntitySet="PersonUniqueGuids" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="AppDevCatalogueEntities">
+          <EntitySetMapping Name="ApplicationNotes">
+            <EntityTypeMapping TypeName="Model.ApplicationNote">
+              <MappingFragment StoreEntitySet="ApplicationNotes">
+                <ScalarProperty Name="ApplicationNotesID" ColumnName="ApplicationNotesID" />
+                <ScalarProperty Name="ApplicationNotesText" ColumnName="ApplicationNotesText" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateLastEdited" ColumnName="DateLastEdited" />
+                <ScalarProperty Name="EditedByUserID" ColumnName="EditedByUserID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Applications">
+            <EntityTypeMapping TypeName="Model.Application">
+              <MappingFragment StoreEntitySet="Applications">
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="AppTypeID" ColumnName="AppTypeID" />
+                <ScalarProperty Name="CriticalityID" ColumnName="CriticalityID" />
+                <ScalarProperty Name="ApplicationDescription" ColumnName="ApplicationDescription" />
+                <ScalarProperty Name="AppServerID" ColumnName="AppServerID" />
+                <ScalarProperty Name="DBServerID" ColumnName="DBServerID" />
+                <ScalarProperty Name="DBName" ColumnName="DBName" />
+                <ScalarProperty Name="AppURL" ColumnName="AppURL" />
+                <ScalarProperty Name="ADLinked" ColumnName="ADLinked" />
+                <ScalarProperty Name="NotesID" ColumnName="NotesID" />
+                <ScalarProperty Name="AppStatusID" ColumnName="AppStatusID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="DateLastEdited" ColumnName="DateLastEdited" />
+                <ScalarProperty Name="EditedByUserID" ColumnName="EditedByUserID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplicationStatuses">
+            <EntityTypeMapping TypeName="Model.ApplicationStatus">
+              <MappingFragment StoreEntitySet="ApplicationStatuses">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppTypes">
+            <EntityTypeMapping TypeName="Model.AppType">
+              <MappingFragment StoreEntitySet="AppTypes">
+                <ScalarProperty Name="AppTypeID" ColumnName="AppTypeID" />
+                <ScalarProperty Name="AppTypeName" ColumnName="AppTypeName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Criticalities">
+            <EntityTypeMapping TypeName="Model.Criticality">
+              <MappingFragment StoreEntitySet="Criticality">
+                <ScalarProperty Name="CriticalityID" ColumnName="CriticalityID" />
+                <ScalarProperty Name="CriticalityName" ColumnName="CriticalityName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servers">
+            <EntityTypeMapping TypeName="Model.Server">
+              <MappingFragment StoreEntitySet="Servers">
+                <ScalarProperty Name="ServerID" ColumnName="ServerID" />
+                <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogErrors">
+            <EntityTypeMapping TypeName="Model.LogError">
+              <MappingFragment StoreEntitySet="LogErrors">
+                <ScalarProperty Name="LogErrorID" ColumnName="LogErrorID" />
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="LoggedTime" ColumnName="LoggedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogSessions">
+            <EntityTypeMapping TypeName="Model.LogSession">
+              <MappingFragment StoreEntitySet="LogSessions">
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+                <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="Model.Person">
+              <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Forename" ColumnName="Forename" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="JobRole" ColumnName="JobRole" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonRoles">
+            <EntityTypeMapping TypeName="Model.PersonRole">
+              <MappingFragment StoreEntitySet="PersonRoles">
+                <ScalarProperty Name="PersonRoleID" ColumnName="PersonRoleID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonUniqueGuids">
+            <EntityTypeMapping TypeName="Model.PersonUniqueGuid">
+              <MappingFragment StoreEntitySet="PersonUniqueGuids">
+                <ScalarProperty Name="GuidID" ColumnName="GuidID" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PersonGuid" TypeName="Model.PersonGuid" StoreEntitySet="PersonGuid">
+            <EndProperty Name="People">
+              <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+            </EndProperty>
+            <EndProperty Name="PersonUniqueGuids">
+              <ScalarProperty Name="GuidID" ColumnName="GuidID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
